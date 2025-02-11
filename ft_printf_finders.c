@@ -1,0 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_finders.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: haaghaja <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 16:18:09 by haaghaja          #+#    #+#             */
+/*   Updated: 2025/02/11 16:21:29 by haaghaja         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
+
+void	find_specifier(const char **format, t_arg *arg)
+{
+	int	specifier;
+
+	specifier = -1;
+	if (**format == 'd' || **format == 'i')
+		specifier = 0;
+	else if (**format == 'c')
+		specifier = 1;
+	else if (**format == 's')
+		specifier = 2;
+	else if (**format == 'x')
+		specifier = 3;
+	else if (**format == 'X')
+		specifier = 4;
+	else if (**format == 'u')
+		specifier = 5;
+	else if (**format == 'p')
+		specifier = 6;
+	else if (**format == '%')
+		specifier = 7;
+	if (specifier != -1)
+		(*format)++;
+	arg->spec = specifier;
+}
+
+void	find_flag(const char **format, t_arg *arg)
+{
+	(*format)++;
+	while (**format
+		&& (**format == '-'
+			|| **format == '+'
+			|| **format == ' '
+			|| **format == '0'
+			|| **format == '#'))
+	{
+		if (**format == '-')
+			arg->flag[0] = 1;
+		else if (**format == '+')
+			arg->flag[1] = 1;
+		else if (**format == ' ')
+			arg->flag[2] = 1;
+		else if (**format == '0')
+			arg->flag[3] = 1;
+		else if (**format == '#')
+			arg->flag[4] = 1;
+		(*format)++;
+	}
+}
+
+void	find_width(const char **format, t_arg *arg)
+{
+	arg->width = 0;
+	while (**format >= '0' && **format <= '9')
+	{
+		arg->width = arg->width * 10 + **format - 48;
+		(*format)++;
+	}
+}
+
+void	find_precision(const char **format, t_arg *arg)
+{
+	if (**format == '.')
+	{
+		arg->prec = 0;
+		(*format)++;
+		while (**format >= '0' && **format <= '9')
+		{
+			arg->prec = arg->prec * 10 + **format - 48;
+			(*format)++;
+		}
+	}
+	else
+		arg->prec = -1;
+}
