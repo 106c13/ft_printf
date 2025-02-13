@@ -74,6 +74,7 @@ void	find_width(const char **format, t_arg *arg)
 
 void	find_precision(const char **format, t_arg *arg)
 {
+	arg->prec_bool = 0;
 	if (**format == '.')
 	{
 		arg->prec = 0;
@@ -83,6 +84,7 @@ void	find_precision(const char **format, t_arg *arg)
 			arg->prec = arg->prec * 10 + **format - 48;
 			(*format)++;
 		}
+		arg->prec_bool = 1;
 	}
 	else
 		arg->prec = -1;

@@ -43,7 +43,7 @@ int	string_builder(const char **format, va_list *args, int *count)
 	else if (arg.spec == 6)
 		print_pointer(va_arg(*args, void *), &arg, count);
 	else if (arg.spec == 7)
-		ft_cputchar('%', count);
+		print_persent(&arg, count);
 	return (1);
 }
 

@@ -22,6 +22,7 @@ typedef struct s_arg
 	int	flag[5];
 	int	width;
 	int	prec;
+	int	prec_bool;
 	int	lenght;
 }	t_arg;
 
@@ -51,6 +52,7 @@ void	print_hex(unsigned int num, t_arg *arg, int *count, int cap);
 void	print_string(char *str, t_arg *arg, int *count);
 void	print_pointer(void *ptr, t_arg *arg, int *count);
 void	print_unsigned(unsigned int num, t_arg *arg, int *count);
+void	print_persent(t_arg *arg, int *count);
 
 size_t	ft_strlen(const char *str);
 void	*ft_memset(void *ptr, int value, size_t num);

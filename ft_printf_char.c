@@ -31,10 +31,7 @@ void	print_string(char *str, t_arg *arg, int *count)
 	int	dup;
 
 	if (!str)
-	{
-		ft_cputstr("(null)", count);
-		return ;
-	}
+		str = "(null)";
 	dup = 0;
 	if ((unsigned int)arg->prec < ft_strlen(str) && arg->prec >= 0)
 	{
@@ -49,4 +46,23 @@ void	print_string(char *str, t_arg *arg, int *count)
 		print_surplus(arg->width - ft_strlen(str), ' ', count);
 	if (dup)
 		free(str);
+}
+
+void	print_persent(t_arg *arg, int *count)
+{
+	if (arg->flag[0])
+	{
+		ft_cputchar('%', count);
+		print_surplus(arg->width - 1, ' ', count);
+	}
+	else if (arg->flag[3])
+	{
+		print_surplus(arg->width - 1, '0', count);
+		ft_cputchar('%', count);
+	}
+	else if (!arg->flag[0])
+	{
+		print_surplus(arg->width - 1, ' ', count);
+		ft_cputchar('%', count);
+	}
 }
