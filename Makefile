@@ -1,4 +1,4 @@
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -rf
 AR = ar crs
@@ -18,14 +18,17 @@ SRC	=	ft_printf.c			\
 		ft_strdub.c
 
 OBJS = $(SRC:.c=.o)
-
-$(NAME): $(OBJS)
+HEADER = ft_printf.h
+$(NAME): $(OBJS) $(HEADER)
 	$(AR) $(NAME) $(OBJS)
 
 bonus: $(OBJS)
 	$(AR) $(NAME) $(OBJS)
 
 all: $(NAME)
+
+%.o: %.c $(HEADER)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
