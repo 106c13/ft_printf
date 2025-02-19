@@ -69,5 +69,6 @@ int	ft_printf(const char *format, ...)
 		else
 			format += ft_cputchar(*format, &count);
 	}
+	va_end(args);
 	return (count);
 }
