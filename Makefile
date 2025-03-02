@@ -1,4 +1,4 @@
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -rf
 AR = ar crs
@@ -17,18 +17,17 @@ SRC	=	ft_printf.c			\
 		ft_memset.c			\
 		ft_strdub.c
 
-OBJS = $(SRC:.c=.o)
 HEADER = ft_printf.h
-$(NAME): $(OBJS) $(HEADER)
+
+OBJS = $(SRC:.c=.o)
+
+$(NAME): $(OBJS) $(HEADER) Makefile
 	$(AR) $(NAME) $(OBJS)
 
-bonus: $(OBJS)
+bonus: $(OBJS) $(HEADER) Makefile
 	$(AR) $(NAME) $(OBJS)
 
 all: $(NAME)
-
-%.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
